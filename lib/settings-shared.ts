@@ -246,3 +246,9 @@ export function calendarLink(title: string, details: string, w: DayWindow): stri
   const p = new URLSearchParams({ action: "TEMPLATE", text: title, dates: `${f(w.start)}/${f(w.end)}`, details, location: "YouTube — @EthioComputerSchool" });
   return `https://calendar.google.com/calendar/render?${p.toString()}`;
 }
+
+/** Remove where-the-live-happens details for visitors who haven't registered yet. */
+export function hideVenue(s: SiteSettings): SiteSettings {
+  const strip = (t: SiteText): SiteText => ({ ...t, rDoneSub: "", rSubYt: "", rTg: "" });
+  return { ...s, subLink: "", telegramLink: "", text: { en: strip(s.text.en), am: strip(s.text.am) } };
+}
