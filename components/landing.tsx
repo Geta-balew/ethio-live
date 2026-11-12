@@ -123,7 +123,7 @@ export default function Landing({ s, registered }: { s: SiteSettings; registered
               <div className="yt-info">
                 <h3>{t.titles[cur] ?? ""}</h3>
                 <div className="yt-row">
-                  <span className="yt-av">{/* eslint-disable-next-line @next/next/no-img-element */}<img src="/logo.png" alt="" width={1500} height={1000} /></span>
+                  <span className="yt-av">{/* eslint-disable-next-line @next/next/no-img-element */}<img src="/logo-icon.png" alt="" width={253} height={221} /></span>
                   <span className="yt-ch"><b>Ethio Computer School</b><span>{t.subsWord}</span></span>
                   <span className="yt-acts">
                     <Link className="yt-sub" href={regHref}>{registered ? t.registered : t.navBtn}</Link>

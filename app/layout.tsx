@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(process.env.BETTER_AUTH_URL ?? "http://localhost:3000"),
   title: "YouTube Monetization Live — Ethio Computer School",
   description: "Free 3-day YouTube Monetization live online class by Ethio Computer School. Register free with Google.",
-  icons: { icon: "/logo.png" },
+  icons: { icon: "/logo-icon.png" },
   openGraph: {
     type: "website",
     title: "YouTube Monetization Live — Free 3-day event",
