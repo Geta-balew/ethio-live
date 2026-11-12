@@ -1,3 +1,4 @@
+import BgLogos from "@/components/bg-logos";
 import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans, Noto_Sans_Ethiopic } from "next/font/google";
 import "./globals.css";
@@ -24,7 +25,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${jakarta.variable} ${ethiopic.variable}`}>
       <body>
-        <div className="bg" aria-hidden="true" />
+        <div className="bg" aria-hidden="true"><BgLogos /></div>
         {children}
       </body>
     </html>

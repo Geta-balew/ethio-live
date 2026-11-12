@@ -304,3 +304,14 @@ td .acts{display:flex;gap:6px;justify-content:flex-end}
 textarea.json{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.5px;line-height:1.5;min-height:420px;resize:vertical;white-space:pre;tab-size:2}
 .savebar{position:sticky;bottom:12px;display:flex;justify-content:flex-end;gap:10px;align-items:center;margin-top:18px;padding:10px;border:1px solid var(--line2);border-radius:14px;background:rgba(12,12,12,.92);backdrop-filter:blur(14px)}
 .adm-login{min-height:100vh;display:grid;place-items:center;padding:20px;text-align:center}
+
+/* Floating blurred YouTube logos in the background */
+.bg-logos{position:absolute;inset:0}
+.bg-logos span{position:absolute;display:block;transform:rotate(var(--r));animation:yt-float 12s ease-in-out infinite;will-change:transform}
+.bg-logos svg{display:block;width:100%;height:auto}
+@keyframes yt-float{0%,100%{transform:translate3d(0,0,0) rotate(var(--r))}50%{transform:translate3d(0,-14px,0) rotate(calc(var(--r) + 3deg))}}
+@media (max-width:759px){
+  .bg-logos span:not(.m){display:none}
+  .bg-logos span{zoom:.6}
+}
+@media (prefers-reduced-motion:reduce){.bg-logos span{animation:none}}
