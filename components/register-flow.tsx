@@ -92,7 +92,7 @@ export default function RegisterFlow({ s, user, reg }: { s: SiteSettings; user: 
       <>
         <h1 dangerouslySetInnerHTML={{ __html: t.rTitle }} />
         <p className="lead">{t.rSub}</p>
-        <div className="rg-meta"><span>{dateRange(s.days)}</span><span>{time}</span><span>Live · YouTube</span><span>{t.price}</span></div>
+        <div className="rg-meta"><span>{dateRange(s.days)}</span><span>{time}</span><span>Live · Online</span><span>{t.price}</span></div>
         {s.registrationOpen
           ? <button className="gbtn" onClick={google} disabled={gLoading}><GoogleIcon />{gLoading ? "…" : t.rGoogle}</button>
           : <p className="err">{t.rClosed}</p>}

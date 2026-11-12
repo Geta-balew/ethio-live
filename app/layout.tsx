@@ -8,12 +8,12 @@ const ethiopic = Noto_Sans_Ethiopic({ subsets: ["ethiopic"], weight: ["400", "50
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.BETTER_AUTH_URL ?? "http://localhost:3000"),
   title: "YouTube Monetization Live — Ethio Computer School",
-  description: "Free 3-day YouTube Monetization live on the Ethio Computer School channel. Register with Google, subscribe and turn on notifications.",
+  description: "Free 3-day YouTube Monetization live online class by Ethio Computer School. Register free with Google.",
   icons: { icon: "/logo.png" },
   openGraph: {
     type: "website",
     title: "YouTube Monetization Live — Free 3-day event",
-    description: "After Feb 1, nothing will be the same. Join 3 nights live on YouTube.",
+    description: "After Feb 1, nothing will be the same. Join 3 nights live online — register free.",
     images: [{ url: "/live-thumb.jpg", width: 1280, height: 720 }],
   },
 };

@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { dateRange, dayLabel, fill, timeLabel, type SiteSettings } from "@/lib/settings-shared";
-import { BellIcon, gridIcons, IgIcon, Logo, TgIcon, TtIcon, YtIcon } from "@/components/icons";
+import { gridIcons, IgIcon, Logo, TgIcon, TtIcon } from "@/components/icons";
 import { LangToggle, useLang } from "@/components/use-lang";
 
 const H = ({ html, as: Tag = "span", className }: { html: string; as?: "span" | "h1" | "h2" | "p" | "div" | "b"; className?: string }) => (
@@ -84,9 +84,9 @@ export default function Landing({ s, registered }: { s: SiteSettings; registered
             <p className="lead rv">{t.sub}</p>
             <div className="btns rv" ref={heroBtns}>
               <Link className="btn btn-red" href={regHref}>{regLabel} →</Link>
-              <a className="btn btn-line" href={s.subLink} target="_blank" rel="noopener"><YtIcon />{t.btnSub}</a>
+              <a className="btn btn-line" href="#join">{t.btnSub}</a>
             </div>
-            <div className="trust rv"><i className="yt" /><H html={fill(t.trust, vars)} /></div>
+            <div className="trust rv"><H html={fill(t.trust, vars)} /></div>
           </div>
 
           <div className="in wide">
@@ -104,7 +104,7 @@ export default function Landing({ s, registered }: { s: SiteSettings; registered
               </div>
               <div className={`player${st === "live" ? "" : " idle"}`}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/live-thumb.jpg" alt="Ethio Computer School — YouTube Monetization live" width={1280} height={720} fetchPriority="high" />
+                <img src="/live-thumb.jpg" alt="Ethio Computer School — Monetization live" width={1280} height={720} fetchPriority="high" />
                 <div className="p-top"><span className={`p-badge${st === "live" ? " live" : ""}`}>{badge}</span><span className="p-day">{t.dayL} {cur + 1} / {days.length}</span></div>
                 <div className="p-center">{center}</div>
                 <div className="p-bar">
@@ -124,10 +124,9 @@ export default function Landing({ s, registered }: { s: SiteSettings; registered
                 <h3>{t.titles[cur] ?? ""}</h3>
                 <div className="yt-row">
                   <span className="yt-av">{/* eslint-disable-next-line @next/next/no-img-element */}<img src="/logo.png" alt="" width={1500} height={1000} /></span>
-                  <span className="yt-ch"><b>Ethio Computer School</b><span>{s.ytSubs} {t.subsWord}</span></span>
+                  <span className="yt-ch"><b>Ethio Computer School</b><span>{t.subsWord}</span></span>
                   <span className="yt-acts">
-                    <a className="yt-sub" href={s.subLink} target="_blank" rel="noopener">Subscribe</a>
-                    <Link className="yt-rem" href={regHref}><BellIcon />Notify me</Link>
+                    <Link className="yt-sub" href={regHref}>{registered ? t.registered : t.navBtn}</Link>
                   </span>
                 </div>
                 <div className="yt-desc">
@@ -138,7 +137,7 @@ export default function Landing({ s, registered }: { s: SiteSettings; registered
               <div className="meta">
                 <div><small>{t.mDate}</small><b>{vars.dates}</b></div>
                 <div><small>{t.mTime}</small><b>{time}</b></div>
-                <div><small>Format</small><b>Live · YouTube</b></div>
+                <div><small>Format</small><b>Live · Online</b></div>
                 <div><small>{t.mStarts}</small><b>{phase === "ended" ? t.ended : phase === "live" ? <span style={{ color: "var(--red)" }}>● {t.liveNow}</span> : now === null ? "—" : fill(t.startsFmt, { d: D, h: Hh, m: M })}</b></div>
               </div>
             </div>
@@ -171,9 +170,7 @@ export default function Landing({ s, registered }: { s: SiteSettings; registered
                 <div className="step rv" key={i}>
                   <i>{i + 1}</i>
                   <div><b>{x[0]}</b><span>{x[1]}</span></div>
-                  {x[2] && (i === 0
-                    ? <a className="btn btn-line btn-sm" href={s.subLink} target="_blank" rel="noopener">{x[2]}</a>
-                    : <Link className="btn btn-red btn-sm" href={regHref}>{registered ? t.registered : x[2]}</Link>)}
+                  {x[2] && <Link className="btn btn-red btn-sm" href={regHref}>{registered ? t.registered : x[2]}</Link>}
                 </div>
               ))}
             </div>
@@ -220,7 +217,6 @@ export default function Landing({ s, registered }: { s: SiteSettings; registered
             <div className="host-name rv">{s.hostName}</div>
             <div className="host-role rv">{s.hostRole}</div>
             <p className="rv">{fill(t.bio, vars)}</p>
-            <div className="btns rv"><a className="btn btn-line" href={s.subLink} target="_blank" rel="noopener"><YtIcon />{t.btnChannel}</a></div>
           </div>
         </section>
 
@@ -241,7 +237,6 @@ export default function Landing({ s, registered }: { s: SiteSettings; registered
               <p>{t.finP}</p>
               <div className="btns">
                 <Link className="btn btn-white" href={regHref}>{regLabel} →</Link>
-                <a className="btn btn-line" href={s.subLink} target="_blank" rel="noopener"><YtIcon />{t.btnSub}</a>
               </div>
             </div>
           </div>
@@ -250,7 +245,6 @@ export default function Landing({ s, registered }: { s: SiteSettings; registered
         <footer className="sec">
           <Logo />
           <div className="soc">
-            <a href="https://youtube.com/@EthioComputerSchool" target="_blank" rel="noopener" aria-label="YouTube"><YtIcon /></a>
             <a href="https://t.me/ethiocss" target="_blank" rel="noopener" aria-label="Telegram"><TgIcon /></a>
             <a href="https://tiktok.com/@ethio_computer_school" target="_blank" rel="noopener" aria-label="TikTok"><TtIcon /></a>
             <a href="https://instagram.com/ethio_computer" target="_blank" rel="noopener" aria-label="Instagram"><IgIcon /></a>
@@ -261,7 +255,6 @@ export default function Landing({ s, registered }: { s: SiteSettings; registered
       </div>
 
       <div className={`sticky${sticky ? " show" : ""}`}>
-        <a className="btn btn-line" href={s.subLink} target="_blank" rel="noopener">Subscribe</a>
         <Link className="btn btn-red" href={regHref}>{registered ? t.registered : t.navBtn}</Link>
       </div>
     </div>
