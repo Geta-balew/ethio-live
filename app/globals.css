@@ -93,9 +93,10 @@ html[lang="am"] .hero h1{font-size:clamp(30px,7.4vw,58px);max-width:15ch}
 .p-badge.live{background:#cc0000}
 .p-badge.live::before{content:"";width:6px;height:6px;border-radius:50%;background:#fff;animation:blink 1.2s infinite}
 @keyframes blink{50%{opacity:.25}}
-.p-center{position:absolute;inset:0;z-index:2;display:grid;place-items:center;pointer-events:none;padding:0 12px}
-.p-center span{background:rgba(0,0,0,.78);backdrop-filter:blur(6px);border-radius:8px;padding:8px 14px;font-weight:700;font-size:13px;text-align:center;line-height:1.45}
+.p-center{position:absolute;left:12px;right:12px;bottom:44px;z-index:2;display:flex;justify-content:flex-start;pointer-events:none}
+.p-center span{background:rgba(0,0,0,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border-radius:8px;padding:6px 11px;font-weight:700;font-size:12.5px;text-align:left;line-height:1.4}
 .p-center small{display:block;font-weight:500;color:#ccc;font-size:11.5px}
+@media (max-width:520px){ .p-center{bottom:40px} .p-center small{display:none} }
 .p-bar{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:0 12px 9px}
 .p-prog{height:3px;background:rgba(255,255,255,.3);border-radius:2px;margin-bottom:8px;position:relative}
 .p-prog i{position:absolute;inset:0 auto 0 0;width:100%;background:#f00;border-radius:2px}
@@ -173,7 +174,7 @@ html[lang="am"] .hero h1{font-size:clamp(30px,7.4vw,58px);max-width:15ch}
 .cell b{display:block;font-size:15px;line-height:1.35}
 .cell span{display:block;color:var(--muted);font-size:13px;margin-top:4px;line-height:1.5}
 .host-photo{width:min(260px,70vw);aspect-ratio:4/5;margin:30px auto 0;border-radius:20px;overflow:hidden;border:1px solid var(--line2);position:relative}
-.host-photo img{width:100%;height:100%;object-fit:cover;object-position:31% 30%;transform:scale(1.9);transform-origin:31% 30%}
+.host-photo img{width:100%;height:100%;object-fit:cover;object-position:2% 0;transform:scale(1.06);transform-origin:40% 0}
 .host-name{font-size:22px;font-weight:700;margin-top:20px}
 .host-role{color:var(--red);font-size:13px;font-weight:600;letter-spacing:.06em;margin-top:2px}
 .host p{color:var(--muted);margin-top:14px}
