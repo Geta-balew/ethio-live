@@ -175,9 +175,10 @@ export const DEFAULT_SETTINGS: SiteSettings = {
   defaultLang: "en",
   registrationOpen: true,
   days: [
+    // ህዳር 11–13, 2019 E.C. = Nov 20–22, 2026
+    { start: "2026-11-20T20:00:00+03:00", end: "2026-11-20T22:30:00+03:00" },
     { start: "2026-11-21T20:00:00+03:00", end: "2026-11-21T22:30:00+03:00" },
     { start: "2026-11-22T20:00:00+03:00", end: "2026-11-22T22:30:00+03:00" },
-    { start: "2026-11-23T20:00:00+03:00", end: "2026-11-23T22:30:00+03:00" },
   ],
   telegramLink: "https://t.me/ethiocomputerschool",
   subLink: "https://youtube.com/@EthioComputerSchool?sub_confirmation=1",
@@ -210,13 +211,27 @@ export function fill(tpl: string, vars: Record<string, string | number>): string
 /* ---------- time helpers (Ethiopia is UTC+3 all year) ---------- */
 const EAT = "Africa/Addis_Ababa";
 
-export function dayLabel(iso: string): string {
+const ET_MONTHS = ["መስከረም", "ጥቅምት", "ህዳር", "ታህሳስ", "ጥር", "የካቲት", "መጋቢት", "ሚያዝያ", "ግንቦት", "ሰኔ", "ሐምሌ", "ነሐሴ", "ጳጉሜ"];
+
+/** Gregorian date (in EAT) → Ethiopian calendar [year, month 1–13, day]. */
+export function toEthiopian(iso: string): [number, number, number] {
+  const d = new Date(new Date(iso).getTime() + 3 * 3600e3); // EAT, read as UTC
+  const y = d.getUTCFullYear(), m = d.getUTCMonth() + 1, day = d.getUTCDate();
+  const a = Math.floor((14 - m) / 12), Y = y + 4800 - a, M = m + 12 * a - 3;
+  const jdn = day + Math.floor((153 * M + 2) / 5) + 365 * Y + Math.floor(Y / 4) - Math.floor(Y / 100) + Math.floor(Y / 400) - 32045;
+  const r = (jdn - 1723856) % 1461, n = (r % 365) + 365 * Math.floor(r / 1460);
+  return [4 * Math.floor((jdn - 1723856) / 1461) + Math.floor(r / 365) - Math.floor(r / 1460), Math.floor(n / 30) + 1, (n % 30) + 1];
+}
+
+/** "Nov 20" (en) or Ethiopian "ህዳር 11" (am). */
+export function dayLabel(iso: string, lang: Lang = "en"): string {
+  if (lang === "am") { const [, m, d] = toEthiopian(iso); return `${ET_MONTHS[m - 1]} ${d}`; }
   return new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", timeZone: EAT }).format(new Date(iso));
 }
 
-export function dateRange(days: DayWindow[]): string {
+export function dateRange(days: DayWindow[], lang: Lang = "en"): string {
   if (!days.length) return "";
-  const a = dayLabel(days[0].start), b = dayLabel(days[days.length - 1].start);
+  const a = dayLabel(days[0].start, lang), b = dayLabel(days[days.length - 1].start, lang);
   const [ma, da] = a.split(" "), [mb, db] = b.split(" ");
   return a === b ? a : ma === mb ? `${ma} ${da}–${db}` : `${a} – ${b}`;
 }

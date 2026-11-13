@@ -56,7 +56,7 @@ export default function RegisterFlow({ s, user, reg }: { s: SiteSettings; user: 
             <div className="cal">
               {s.days.map((d, i) => (
                 <a key={i} target="_blank" rel="noopener" href={calendarLink(`${t.dayL} ${i + 1} — YouTube Monetization Live`, `${t.titles[i] ?? ""}\n${s.subLink}`, d)}>
-                  {t.dayL} {i + 1} · {dayLabel(d.start)}
+                  {t.dayL} {i + 1} · {dayLabel(d.start, lang)}
                 </a>
               ))}
             </div>
@@ -92,7 +92,7 @@ export default function RegisterFlow({ s, user, reg }: { s: SiteSettings; user: 
       <>
         <h1 dangerouslySetInnerHTML={{ __html: t.rTitle }} />
         <p className="lead">{t.rSub}</p>
-        <div className="rg-meta"><span>{dateRange(s.days)}</span><span>{time}</span><span>Live · Online</span><span>{t.price}</span></div>
+        <div className="rg-meta"><span>{dateRange(s.days, lang)}</span><span>{time}</span><span>Live · Online</span><span>{t.price}</span></div>
         {s.registrationOpen
           ? <button className="gbtn" onClick={google} disabled={gLoading}><GoogleIcon />{gLoading ? "…" : t.rGoogle}</button>
           : <p className="err">{t.rClosed}</p>}

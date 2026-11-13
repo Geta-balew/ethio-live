@@ -18,8 +18,8 @@ export default function Landing({ s, registered }: { s: SiteSettings; registered
   const [sticky, setSticky] = useState(false);
   const heroBtns = useRef<HTMLDivElement>(null);
 
-  const days = s.days.map((d) => ({ s: +new Date(d.start), e: +new Date(d.end), label: dayLabel(d.start) }));
-  const vars = { dates: dateRange(s.days), subs: s.ytSubs };
+  const days = s.days.map((d) => ({ s: +new Date(d.start), e: +new Date(d.end), label: dayLabel(d.start, lang) }));
+  const vars = { dates: dateRange(s.days, lang), subs: s.ytSubs };
   const time = s.days[0] ? timeLabel(s.days[0].start, lang) : "";
   const regHref = "/register";
   const regLabel = registered ? t.registered : t.btnReg;
