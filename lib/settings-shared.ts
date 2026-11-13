@@ -35,7 +35,7 @@ export type SiteSettings = {
 
 const en: SiteText = {
   navBtn: "Register free",
-  status: "Free 3-day live online class · {dates}",
+  status: "Free 3-day live · {dates}",
   h1: "After Feb 1, <em>nothing</em> will be the same.",
   sub: "Three nights, live online. Get a clear plan to get monetized and double your channel — before the rules change. The time to start is now.",
   btnReg: "Register free", btnSub: "How it works", btnChannel: "", registered: "✓ You're registered",
@@ -223,17 +223,33 @@ export function toEthiopian(iso: string): [number, number, number] {
   return [4 * Math.floor((jdn - 1723856) / 1461) + Math.floor(r / 365) - Math.floor(r / 1460), Math.floor(n / 30) + 1, (n % 30) + 1];
 }
 
-/** "Nov 20" (en) or Ethiopian "ህዳር 11" (am). */
-export function dayLabel(iso: string, lang: Lang = "en"): string {
-  if (lang === "am") { const [, m, d] = toEthiopian(iso); return `${ET_MONTHS[m - 1]} ${d}`; }
+/** Ethiopian "ህዳር 11" — same as the thumbnail. */
+export function ethLabel(iso: string): string {
+  const [, m, d] = toEthiopian(iso);
+  return `${ET_MONTHS[m - 1]} ${d}`;
+}
+
+/** Gregorian "Nov 20". */
+export function gregLabel(iso: string): string {
   return new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", timeZone: EAT }).format(new Date(iso));
 }
 
-export function dateRange(days: DayWindow[], lang: Lang = "en"): string {
-  if (!days.length) return "";
-  const a = dayLabel(days[0].start, lang), b = dayLabel(days[days.length - 1].start, lang);
+/** Day label shown on the site: Ethiopian calendar in both languages (matches the thumbnail). */
+export function dayLabel(iso: string, _lang: Lang = "en"): string {
+  return ethLabel(iso);
+}
+
+function range(days: DayWindow[], label: (iso: string) => string): string {
+  const a = label(days[0].start), b = label(days[days.length - 1].start);
   const [ma, da] = a.split(" "), [mb, db] = b.split(" ");
   return a === b ? a : ma === mb ? `${ma} ${da}–${db}` : `${a} – ${b}`;
+}
+
+/** "ህዳር 11–13" (am) or "ህዳር 11–13 (Nov 20–22)" (en). */
+export function dateRange(days: DayWindow[], lang: Lang = "en"): string {
+  if (!days.length) return "";
+  const eth = range(days, ethLabel);
+  return lang === "am" ? eth : `${eth} (${range(days, gregLabel)})`;
 }
 
 /** "8:00 PM EAT" (en) or Ethiopian clock "ምሽት 2:00" (am). */
